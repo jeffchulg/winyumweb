@@ -1,4 +1,8 @@
 <?php
+
+// Zend Developer Tools Module
+define('REQUEST_MICROTIME', microtime(true));
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -10,3 +14,4 @@ include 'init_autoloader.php';
 
 // Run the application!
 Zend\Mvc\Application::init(include 'config/application.config.php')->run();
+

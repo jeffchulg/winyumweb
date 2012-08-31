@@ -1,6 +1,54 @@
 {
-    "hash": "f7b3fc3ecc3a1c2af65cd3d73ce37309",
+    "hash": "8b26db5c3b0af14adb9fcebd381350b1",
     "packages": [
+        {
+            "package": "bjyoungblood/BjyProfiler",
+            "version": "dev-master",
+            "source-reference": "aefd2fd914bfbeb89e621a9a9d29b2b36a870a77",
+            "commit-date": "1346118660"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "2.3.x-dev",
+            "source-reference": "50103d1fde90876a48478f4daa760d9e81448d18",
+            "commit-date": "1346226460"
+        },
+        {
+            "package": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source-reference": "779c3dfe446b6da893be87b908d6be28345d1e01",
+            "commit-date": "1341780535"
+        },
+        {
+            "package": "doctrine/doctrine-module",
+            "version": "dev-master",
+            "source-reference": "55aa93bda85d1030aea8ee57fd7b5c52ddf72dee",
+            "commit-date": "1345104598"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/console",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "dev-master",
+            "alias-pretty-version": "2.1.x-dev",
+            "alias-version": "2.1.9999999.9999999-dev"
+        },
+        {
+            "package": "symfony/yaml",
+            "version": "dev-master",
+            "source-reference": "v2.1.0-RC2",
+            "commit-date": "1345643321"
+        },
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
@@ -18,8 +66,10 @@
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "zendframework/zendframework": 20
+        "zendframework/zendframework": 20,
+        "bjyoungblood/bjyprofiler": 20,
+        "doctrine/doctrine-module": 20
     }
 }

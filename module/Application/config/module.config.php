@@ -6,7 +6,6 @@
  * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
@@ -58,7 +57,7 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2),
         'translation_patterns' => array(
             array(
                 'type'     => 'gettext',
@@ -86,6 +85,64 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+    ),
+    'assetic_configuration' => array(
+        'routes' => array(
+            'home' => array(
+                '@base_css',
+                '@base_js',
+            ),
+            'winyum' => array(
+                '@base_css',
+                '@base_js',
+            ),
+        ),
+
+        'modules' => array(
+            /*
+             * Application module - assets configuration
+             */
+            'application' => array(
+
+                # module root path for yout css and js files
+                'root_path' => __DIR__ . '/../assets',
+
+                # collection od assets
+                'collections' => array(
+
+                    'base_css' => array(
+                        'assets' => array(
+                            'css/bootstrap-responsive.min.css',
+                            'css/style.css',
+                            'css/bootstrap.min.css'
+                        ),
+                        'filters' => array(
+                            'CssRewriteFilter' => array(
+                                'name' => 'Assetic\Filter\CssRewriteFilter'
+                            )
+                        ),
+                        'options' => array(),
+                    ),
+
+                    'base_js' => array(
+                        'assets' => array(
+                            'js/html5.js',
+                            'js/jquery-1.7.2.min.js'
+                        )
+                    ),
+
+                    'base_images' => array(
+                        'assets' => array(
+                            'images/*.png',
+                            'images/*.ico',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                        )
+                    ),
+                ),
+            ),
         ),
     ),
 );
