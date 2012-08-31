@@ -1,0 +1,103 @@
+<?php
+$title = $this->translate('Liste des dépôts');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<div>&nbsp;</div>
+<p>
+    <?php
+    if($show != 'all') {
+        echo '<a href="/winyum/index">Tous</a>';
+    } else echo "Tous";
+    ?>
+    (<?php echo $cntALL?>)&nbsp;
+    <?php
+    if($show != 'prod') {
+        echo '<a href="/winyum/index?show=prod">PROD</a>';
+    } else echo "PROD";
+    ?>
+    (<?php echo $cntPROD?>)&nbsp;
+    <?php
+    if($show != 'test') {
+        echo '<a href="/winyum/index?show=test">TEST</a>';
+    } else echo "TEST";
+    ?>
+    (<?php echo $cntTEST?>)&nbsp;
+    <?php
+    if($show != 'eval') {
+        echo '<a href="/winyum/index?show=eval">EVAL</a>';
+    } else echo "EVAL";
+    ?>
+    (<?php echo $cntEVAL?>)&nbsp;
+
+</p>
+<?php
+if(!$repos) { ?>
+
+<?php
+}
+else {?>
+
+    <table>
+
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Statut</th> <!-- ACTIF, VERROUILLE -->
+            <th>Actions</th> <!-- VOIR historique , verrouiller, MAJ -->
+        </tr>
+
+        <?php
+        foreach ($repos as $row) {
+            // affichage
+            echo "<tr class=\"row1\">\n";
+            switch ($row->ENV_PTED) {
+                case 'P' :
+                    echo "<td align=\"center\">" .
+                    '<img alt="Production" src="/assets/images/prod.png" title="Production"/>' .
+                    "</td>\n";
+                    break;
+                case 'T' :
+                    echo "<td align=\"center\">" .
+                    '<img alt="Test" src="/assets/images/test.png" title="Test"/>' .
+                    "</td>\n";
+                    break;
+                case 'E' :
+                    echo "<td align=\"center\">" .
+                    '<img alt="Eval" src="/assets/images/eval.png" title="Evaluation"/>' .
+                    "</td>\n";
+                    break;
+                default :
+                    echo "<td align=\"center\">Dev</td>\n";
+                    break;
+            }
+
+            echo "<td> " . $row->NOM . " </td>\n";
+
+            $img = '<img alt="actif" src="/assets/images/up.png" title="Actif" />';
+            if ($row->LOCK_LEVEL > 0) {
+                $img = '<img alt="Verrouil&eacute;" src="/assets/images/lock.png" title="Verrouill&eacute;" />';
+            }
+            if ($row->ACTIF == 0)
+                $img = '<img alt="D&eacute;sactiv&eacute;" src="/assets/images/down.png" title="D&eacute;sactiv&eacute;" />';
+
+            echo "<td align=\"center\">" . $img . "</td>\n";
+
+            echo "<td align=\"center\">" .
+            '<a href="/winyum/deploy/' . $row->MASTER . '"><img alt="upload" src="/assets/images/upload.png" title="D&eacute;ployer une nouvelle version"/></a>' .
+            (($row->LOCK_LEVEL > 0) ?
+                    '<a href="/winyum/lock/' . $row->MASTER . '?locktype=0"><img alt="unlock" src="/assets/images/unlock.png" title="D&eacute;verrouiller"/></a>' :
+                    '<a href="/winyum/lock/' . $row->MASTER . '?locktype=1"><img alt="lock" src="/assets/images/lock.png" title="Verrouiller"/></a>'
+            ) .
+            '<a href="/winyum/lockHist/' . $row->MASTER . '">' .
+            '<img alt="Verrous" src="/assets/images/calendar_info.png" title="Voir historique des verrous"/> ' . "</a> " .
+            '<a href="/winyum/deployHist/' . $row->MASTER . '">' .
+            '<img alt="Deploiements" src="/assets/images/calendar_info.png" title="Voir historique des déploiements"/> ' . "</a> " .
+            '<a href="/winyum/listconsumers/' . $row->MASTER . '"><img alt="Liste abonn&eacute;s" src="/assets/images/users_info.png" title="Lister les abonn&eacute;s"/></a>' .
+            "</td>\n";
+            echo "</tr>\n";
+        }
+        ?>
+</table>
+<?php
+}?>
